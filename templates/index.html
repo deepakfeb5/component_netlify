@@ -1,74 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOM Pricing Tool</title>
-
-    https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css
-</head>
-
-<body>
-<div class="container mt-4">
-
-    <h2>Upload BOM CSV</h2>
-
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="csv_file" class="form-control mb-3" required>
-        <button class="btn btn-primary">Upload & Process</button>
-    </form>
-
-    <hr>
-
-    {% if bom %}
-    <h3>Per-Part Pricing</h3>
-
-    <table class="table table-bordered table-striped mt-3">
-        <thead class="table-dark">
-        <tr>
-            <th>Part Number</th>
-            <th>Quantity</th>
-            <th>Manufacturer</th>
-            <th>Lifecycle</th>
-            <th>Stock Info</th>
-            <th>Unit Price</th>
-            <th>Total Price</th>
-            <th>Alternates</th>
-            <th>Error</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in bom %}
-        <tr>
-            <td>{{ item.PartNumber }}</td>
-            <td>{{ item.Quantity }}</td>
-            <td>{{ item.Manufacturer }}</td>
-            <td>{{ item.Lifecycle }}</td>
-            <td>{{ item.StockInfo }}</td>
-            <td>${{ item.UnitPrice }}</td>
-            <td>${{ item.TotalPrice }}</td>
-            <td>{{ item.Alternates }}</td>
-            <td>{{ item.Error }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <h4>Total BOM Cost: ${{ total_cost }}</h4>
-
-    <button class="btn btn-success" onclick="downloadResultsCSV()">
-        Download Results CSV
-    </button>
-
-    {% endif %}
-
+<!-- Title with Icon -->
+<div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+    {{ url_for(
+    <h1 style="margin:0;">Mouser BOM Sourcing Dashboard</h1>
 </div>
 
-<script>
-    window.bomData = {{ bom|tojson(indent=2) | safe if bom else '[]' }};
-</script>
+<!-- Upload Section -->
+<h3>Upload BOM CSV</h3>
 
-<script src="/static/script.js"></script>
+<p style="font-size:14px; color:#666; margin-top:-10px;">
+    <strong>columns:</strong> PartNumber, Quantity, Description, Manufacturer
+</p>
 
-</body>
-</html>
+<form method="POST" enctype="multipart/form-data" style="margin-top:10px;">
+    <input type="file" name="csv_file" class="form-control mb-3" required>
+    <button class="btn btn-primary">Upload & Process</button>
+</form>
