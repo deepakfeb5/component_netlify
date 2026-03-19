@@ -1,4 +1,0 @@
-<div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
-    <{ url_for(
-    <h1 style="margin:0;">Mouser BOM Sourcing Dashboard</h1>
-</div>
